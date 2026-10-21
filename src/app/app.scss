@@ -1,0 +1,179 @@
+:host {
+  display: block;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 20;
+  background: var(--ink);
+  color: var(--ash);
+  padding: 0.6rem 1rem;
+  font-family: var(--sans);
+  &:focus {
+    top: 0.6rem;
+  }
+}
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--ash);
+  border-bottom: 2px solid var(--ink);
+}
+
+.bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.6rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 1.3rem;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  &:hover {
+    color: var(--ink);
+  }
+}
+
+// A small split mark echoing the home page frontier.
+.brand-mark {
+  width: 1.35rem;
+  height: 1.35rem;
+  background: linear-gradient(90deg, var(--ash-2) 0 50%, var(--sava) 50% 100%);
+  border: 2px solid var(--ink);
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    left: calc(50% - 1px);
+    top: -4px;
+    bottom: -4px;
+    width: 2px;
+    background: var(--oxblood);
+  }
+}
+
+.bar-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--sans);
+  font-size: 1.02rem;
+}
+
+.nav-btn,
+.nav-link {
+  background: none;
+  border: 0;
+  padding: 0.5rem 0.7rem;
+  color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+  border-bottom: 3px solid transparent;
+  &:hover {
+    color: var(--oxblood);
+  }
+}
+
+.nav-btn[aria-expanded='true'],
+.nav-link.on {
+  border-bottom-color: var(--oxblood);
+}
+
+.menu {
+  background: var(--sava);
+  color: var(--ash);
+  border-top: 2px solid var(--ink);
+}
+
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding-block: 0.6rem 1.1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 0 2rem;
+}
+
+.menu-item {
+  display: grid;
+  grid-template-columns: 6.2rem 1fr;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.55rem 0;
+  color: var(--ash);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(232, 234, 230, 0.25);
+  &:hover {
+    color: var(--straw);
+  }
+  &:focus-visible {
+    outline-color: var(--straw);
+  }
+}
+
+.menu-era {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+
+.menu-title {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+main {
+  min-height: 70vh;
+  &:focus {
+    outline: none;
+  }
+}
+
+.foot {
+  margin-top: 5rem;
+  background: var(--ink);
+  color: var(--ash);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.foot-inner {
+  padding-block: 2.2rem;
+  p {
+    margin: 0 0 0.8rem;
+    max-width: 52rem;
+  }
+}
+
+.foot-script span {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+}
+
+@media (max-width: 640px) {
+  .brand {
+    font-size: 1.1rem;
+  }
+  .nav-btn,
+  .nav-link {
+    padding-inline: 0.45rem;
+  }
+  .menu-item {
+    grid-template-columns: 5.4rem 1fr;
+  }
+}

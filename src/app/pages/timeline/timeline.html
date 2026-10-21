@@ -1,0 +1,57 @@
+<div class="wrap page">
+  <header class="head">
+    <h1>Timeline</h1>
+    <p class="lead">
+      From the end of Tito’s Yugoslavia to the elections of October 2026. Choose a theme to narrow the list;
+      choose it again to clear it.
+    </p>
+  </header>
+
+  <div class="filters" role="group" aria-label="Filter events by theme">
+    <button
+      type="button"
+      class="chip"
+      [attr.aria-pressed]="active() === null"
+      (click)="toggle(null)"
+    >
+      All events
+    </button>
+    @for (t of themes; track t) {
+      <button
+        type="button"
+        class="chip"
+        [attr.aria-pressed]="active() === t"
+        (click)="toggle(t)"
+      >
+        {{ labels[t] }}
+      </button>
+    }
+  </div>
+
+  <p class="count" aria-live="polite">Showing {{ shown().length }} of {{ total }} events.</p>
+
+  @for (d of decades(); track d.label) {
+    <section class="decade" [attr.aria-label]="d.label">
+      <h2>{{ d.label }}</h2>
+      <ol class="events">
+        @for (e of d.events; track e.date + e.title) {
+          <li class="event">
+            <p class="date">{{ e.date }}</p>
+            <div class="what">
+              <h3>{{ e.title }}</h3>
+              <p>{{ e.text }}</p>
+              <p class="tags">
+                @for (t of e.themes; track t) {
+                  <span>{{ labels[t] }}</span>
+                }
+                @if (e.chapter) {
+                  <a [routerLink]="['/', e.chapter]">Read: {{ chapterTitle(e.chapter) }}</a>
+                }
+              </p>
+            </div>
+          </li>
+        }
+      </ol>
+    </section>
+  }
+</div>

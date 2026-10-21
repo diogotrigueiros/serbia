@@ -1,0 +1,70 @@
+<div class="wrap page">
+  <header class="head">
+    <h1>Sources and notes</h1>
+    <p class="lead">What this site relies on, and what to check before you quote it.</p>
+  </header>
+
+  <section class="block">
+    <h2>How it was put together</h2>
+    <p>
+      Events from 2026, including the resignation of President Vučić, the 25 October election, the state of the
+      Kosovo dialogue and the EU–Western Balkans summit, were checked against news and official sources on
+      21 October 2026. They are linked on each chapter.
+    </p>
+    <p>
+      Earlier history follows standard accounts, court records and the books listed below. Dates,
+      figures and legal findings were written with care, but some of them, such as casualty numbers and
+      refugee estimates, are disputed or revised over time. Where a figure is an estimate, the text says so.
+    </p>
+    <p>
+      Where historians and governments disagree, each chapter has a block called “Where accounts differ”
+      that sets out the positions and who holds them. The site does not claim to settle these arguments.
+      The unfinished trial of Slobodan Milošević and the unresolved political background of the Đinđić
+      assassination are two cases where a court did not, or could not, deliver the final word.
+    </p>
+    <p>
+      The site is a snapshot. It does not report the result of the 25 October 2026 election.
+    </p>
+  </section>
+
+  <section class="block">
+    <h2>Further reading</h2>
+    <ul class="list">
+      @for (b of reading; track b.title) {
+        <li>
+          <span class="t">{{ b.title }}</span>
+          <span class="m">{{ b.author }}. {{ b.note }}</span>
+        </li>
+      }
+    </ul>
+    <p class="aside">
+      For the Serbian government’s positions, the Ministry of Foreign Affairs publishes statements at
+      <a href="https://mfa.gov.rs" target="_blank" rel="noopener noreferrer">mfa.gov.rs</a>. For judgments and
+      case files, see the <a href="https://www.icty.org/" target="_blank" rel="noopener noreferrer">ICTY</a> and
+      the <a href="https://www.icj-cij.org/" target="_blank" rel="noopener noreferrer">ICJ</a>.
+    </p>
+  </section>
+
+  <section class="block">
+    <h2>Sources by chapter</h2>
+    @for (c of chapters; track c.slug) {
+      <div class="group">
+        <h3><a [routerLink]="['/', c.slug]">{{ c.title }}</a></h3>
+        <ul class="list">
+          @for (s of c.sources; track s.title) {
+            <li>
+              @if (s.url) {
+                <a class="t" [href]="s.url" target="_blank" rel="noopener noreferrer">{{ s.title }}</a>
+              } @else {
+                <span class="t">{{ s.title }}</span>
+              }
+              @if (s.publisher || s.note) {
+                <span class="m">{{ s.publisher }}@if (s.publisher && s.note) {, }{{ s.note }}</span>
+              }
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </section>
+</div>

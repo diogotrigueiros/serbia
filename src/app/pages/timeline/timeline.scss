@@ -1,0 +1,146 @@
+:host {
+  display: block;
+}
+
+.page {
+  padding-top: clamp(2.2rem, 6vw, 4.2rem);
+}
+
+.head {
+  max-width: 44rem;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 6.2vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.lead {
+  font-size: 1.4rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+}
+
+.chip {
+  font-family: var(--sans);
+  font-size: 1.02rem;
+  font-weight: 500;
+  padding: 0.4rem 0.9rem;
+  background: transparent;
+  border: 2px solid var(--ink);
+  cursor: pointer;
+  &:hover {
+    background: var(--ash-2);
+  }
+  &[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--ash);
+  }
+}
+
+.count {
+  font-family: var(--sans);
+  font-size: 1rem;
+  color: var(--slate);
+  margin: 0 0 1.6rem;
+}
+
+.decade {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 1.2rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--ink);
+  margin-bottom: 2.6rem;
+
+  h2 {
+    font-size: 2rem;
+    font-variant-numeric: lining-nums;
+    position: sticky;
+    top: 4.6rem;
+    align-self: start;
+  }
+}
+
+.events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 44rem;
+}
+
+.event {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  gap: 1.1rem;
+  padding: 0.9rem 0 1rem;
+  border-bottom: 1px solid #aeb4ad;
+
+  &:first-child {
+    padding-top: 0.2rem;
+  }
+}
+
+.date {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 1.02rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--oxblood);
+  padding-top: 0.25rem;
+}
+
+.what {
+  h3 {
+    font-size: 1.4rem;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+  }
+  p {
+    margin: 0 0 0.4rem;
+    line-height: 1.5;
+  }
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.9rem;
+  font-family: var(--sans);
+  font-size: 0.96rem;
+  color: var(--slate);
+  margin: 0.2rem 0 0 !important;
+
+  a {
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 760px) {
+  .decade {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    h2 {
+      position: static;
+    }
+  }
+  .event {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+  .date {
+    padding-top: 0;
+  }
+}

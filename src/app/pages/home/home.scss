@@ -1,0 +1,200 @@
+:host {
+  display: block;
+}
+
+/* ---- The frontier hero: the one bold moment on the site ---- */
+.frontier {
+  --x: 50%;
+  position: relative;
+  height: clamp(22rem, 68vh, 40rem);
+  overflow: hidden;
+  background: var(--ash);
+  border-bottom: 2px solid var(--ink);
+  touch-action: pan-y;
+  cursor: col-resize;
+  user-select: none;
+}
+
+.side {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 var(--gutter) clamp(2.2rem, 7vh, 4rem);
+}
+
+.west {
+  color: var(--ink);
+  justify-content: flex-start;
+}
+
+.east {
+  background: var(--sava);
+  color: var(--ash);
+  justify-content: flex-end;
+  clip-path: inset(0 0 0 var(--x));
+}
+
+.word {
+  font-weight: 800;
+  font-size: clamp(2.8rem, 12.5vw, 12rem);
+  line-height: 0.85;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+.line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--x);
+  width: 3px;
+  margin-left: -1.5px;
+  background: var(--oxblood);
+  cursor: col-resize;
+  // A wider invisible hit area, which also makes the focus ring easy to see.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 -14px;
+  }
+  &:focus-visible {
+    outline: 3px solid var(--straw);
+    outline-offset: 4px;
+  }
+}
+
+.hint {
+  margin-top: 0.8rem;
+  margin-bottom: 0;
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.35;
+  color: var(--slate);
+}
+
+// The opening sweep: the line travels from the right edge to the middle once.
+.settling {
+  .east {
+    transition: clip-path 1.3s cubic-bezier(0.65, 0, 0.2, 1);
+  }
+  .line {
+    transition: left 1.3s cubic-bezier(0.65, 0, 0.2, 1);
+  }
+}
+
+/* ---- Intro ---- */
+.intro {
+  padding-top: clamp(2.4rem, 6vw, 4.2rem);
+  p {
+    max-width: var(--measure);
+  }
+}
+
+.standfirst {
+  font-size: clamp(1.5rem, 3vw, 1.95rem);
+  line-height: 1.3;
+  font-weight: 500;
+  max-width: 34rem !important;
+  margin-bottom: 1.2rem;
+}
+
+/* ---- Chapter ledger ---- */
+.index {
+  padding-top: clamp(2.4rem, 6vw, 4rem);
+}
+
+.index-h {
+  font-size: 1.9rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.ledger {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 8.2rem 1fr;
+  gap: 1.2rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #aeb4ad;
+  color: var(--ink);
+  text-decoration: none;
+  &:hover {
+    .title {
+      color: var(--oxblood);
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 0.15em;
+    }
+  }
+  &:hover {
+    color: var(--ink);
+  }
+}
+
+.era {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--slate);
+  padding-top: 0.5rem;
+}
+
+.body {
+  display: grid;
+  gap: 0.15rem;
+  max-width: 40rem;
+}
+
+.title {
+  font-size: clamp(1.6rem, 3vw, 2.15rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.sr {
+  font-style: italic;
+  color: var(--sava);
+  font-size: 1.1rem;
+}
+
+.sum {
+  line-height: 1.4;
+  margin-top: 0.3rem;
+}
+
+.more {
+  margin-top: 1.4rem;
+  max-width: var(--measure);
+}
+
+/* ---- Now ---- */
+.now {
+  padding-top: clamp(2.4rem, 6vw, 4rem);
+  h2 {
+    font-size: 1.9rem;
+    margin-bottom: 0.8rem;
+  }
+  p {
+    max-width: var(--measure);
+  }
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+  .era {
+    padding-top: 0;
+  }
+  .word {
+    font-size: clamp(2.4rem, 13.5vw, 5rem);
+  }
+}

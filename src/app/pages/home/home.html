@@ -1,0 +1,81 @@
+<section
+  class="frontier"
+  [class.settling]="settling()"
+  [style.--x]="x() + '%'"
+  (pointermove)="onPointer($event)"
+  (pointerdown)="onPointer($event)"
+>
+  <h1 class="sr-only">Serbia since 1987</h1>
+
+  <!-- West side: Latin script on paper -->
+  <div class="side west" aria-hidden="true">
+    <span class="word" lang="sr-Latn">Srbija</span>
+  </div>
+
+  <!-- East side: Cyrillic script on river blue, clipped by the frontier line -->
+  <div class="side east" aria-hidden="true">
+    <span class="word" lang="sr-Cyrl">Србија</span>
+  </div>
+
+  <div
+    class="line"
+    role="slider"
+    tabindex="0"
+    aria-label="Frontier position"
+    aria-valuemin="6"
+    aria-valuemax="94"
+    [attr.aria-valuenow]="x() | number: '1.0-0'"
+    aria-valuetext="Shift the line between Latin and Cyrillic"
+    (keydown)="onKey($event)"
+  ></div>
+</section>
+
+<p class="wrap hint">Move across the panel above to shift the frontier between the two scripts. Arrow keys work too.</p>
+
+<div class="wrap intro">
+  <p class="standfirst">
+    Seven chapters on the wars that ended Yugoslavia, the people who shaped them, and the country they
+    left behind: a country caught between Brussels, Moscow and Beijing, and led since 2012 by a party
+    whose founders came out of the nationalist movement of the 1990s.
+  </p>
+  <p>
+    The topics here are contested, and often painfully so. Each chapter says what courts and records
+    establish, then sets out in a separate block where accounts differ and who holds which view. Recent
+    events are checked against news sources, which are listed at the end of each chapter.
+  </p>
+</div>
+
+<section class="wrap index" aria-labelledby="index-h">
+  <h2 id="index-h" class="index-h">Chapters</h2>
+  <ul class="ledger">
+    @for (c of chapters; track c.slug) {
+      <li>
+        <a [routerLink]="['/', c.slug]" class="row">
+          <span class="era">{{ c.era }}</span>
+          <span class="body">
+            <span class="title">{{ c.title }}</span>
+            <span class="sr" lang="sr-Cyrl">{{ c.titleSr }}</span>
+            <span class="sum">{{ c.summary }}</span>
+          </span>
+        </a>
+      </li>
+    }
+  </ul>
+  <p class="more">
+    The <a routerLink="/timeline">timeline</a> places every event on one page, and
+    <a routerLink="/sources">sources and notes</a> explains how the site was put together.
+  </p>
+</section>
+
+<section class="wrap now" aria-labelledby="now-h">
+  <h2 id="now-h">Serbia on 21 October 2026</h2>
+  <p>
+    President Aleksandar Vučić resigned on 27 September to seek the prime minister’s post in snap
+    parliamentary elections on 25 October. The vote follows nearly two years of student-led protests that
+    began after the Novi Sad railway station collapse of November 2024. This site does not cover the
+    result.
+  </p>
+  <p>
+    <a [routerLink]="['/', 'vucic']">Read how his rise happened</a>.
+  </p>
+</section>

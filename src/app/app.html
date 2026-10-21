@@ -1,0 +1,57 @@
+<a class="skip" href="#main" (click)="$event.preventDefault(); focusMain()">Skip to content</a>
+
+<header class="bar">
+  <div class="wrap bar-inner">
+    <a routerLink="/" class="brand" aria-label="Serbia since 1987, home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Serbia since 1987
+    </a>
+
+    <nav class="bar-nav" aria-label="Main">
+      <button
+        type="button"
+        class="nav-btn"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="chapter-menu"
+        (click)="toggleMenu()"
+      >
+        Chapters
+      </button>
+      <a routerLink="/timeline" routerLinkActive="on" class="nav-link">Timeline</a>
+      <a routerLink="/sources" routerLinkActive="on" class="nav-link">Sources</a>
+    </nav>
+  </div>
+
+  @if (menuOpen()) {
+    <div class="menu" id="chapter-menu">
+      <ul class="wrap menu-list">
+        @for (c of chapters; track c.slug) {
+          <li>
+            <a [routerLink]="['/', c.slug]" class="menu-item">
+              <span class="menu-era">{{ c.era }}</span>
+              <span class="menu-title">{{ c.title }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</header>
+
+<main id="main" tabindex="-1">
+  <router-outlet />
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <p>
+      Written on 21 October 2026. Recent events are drawn from news sources listed on each chapter;
+      historical details follow standard accounts and should be checked before citing.
+    </p>
+    <p class="foot-script">
+      Serbia officially uses the Cyrillic script, and Latin is used just as widely in daily life.
+      This site shows both:
+      <span lang="sr-Cyrl">Србија</span> / <span lang="sr-Latn">Srbija</span>.
+    </p>
+  </div>
+</footer>

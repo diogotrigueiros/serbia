@@ -1,0 +1,135 @@
+@if (chapter(); as c) {
+  <article class="wrap page">
+    <header class="head">
+      <p class="era">{{ c.era }}</p>
+      <h1>{{ c.title }}</h1>
+      <p class="sr" lang="sr-Cyrl">{{ c.titleSr }}</p>
+      <p class="lead">{{ c.lead }}</p>
+    </header>
+
+    <div class="layout">
+      <nav class="toc" aria-label="In this chapter">
+        <p class="toc-h">In this chapter</p>
+        <ul>
+          <li><button type="button" (click)="jump('glance')">At a glance</button></li>
+          @for (s of c.sections; track s.id) {
+            <li><button type="button" (click)="jump(s.id)">{{ s.heading }}</button></li>
+          }
+          @if (c.perspectives) {
+            <li><button type="button" (click)="jump('differ')">{{ c.perspectives.heading }}</button></li>
+          }
+          <li><button type="button" (click)="jump('sources')">Sources</button></li>
+        </ul>
+      </nav>
+
+      <div class="main">
+        <section id="glance" tabindex="-1" class="glance" aria-labelledby="glance-h">
+          <h2 id="glance-h">At a glance</h2>
+          <dl>
+            @for (f of c.facts; track f.label) {
+              <div class="fact">
+                <dt>{{ f.label }}</dt>
+                <dd>{{ f.value }}</dd>
+              </div>
+            }
+          </dl>
+        </section>
+
+        @for (s of c.sections; track s.id) {
+          <section [id]="s.id" tabindex="-1" class="sec" [attr.aria-labelledby]="s.id + '-h'">
+            <h2 [id]="s.id + '-h'">{{ s.heading }}</h2>
+            @for (p of s.body; track $index) {
+              <p>{{ p }}</p>
+            }
+            @if (s.table; as t) {
+              <div class="table-wrap" role="region" tabindex="0" [attr.aria-label]="t.caption">
+                <table>
+                  <caption>{{ t.caption }}</caption>
+                  <thead>
+                    <tr>
+                      @for (h of t.head; track h) {
+                        <th scope="col">{{ h }}</th>
+                      }
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (r of t.rows; track r[0]) {
+                      <tr>
+                        <th scope="row">{{ r[0] }}</th>
+                        @for (cell of r.slice(1); track $index) {
+                          <td>{{ cell }}</td>
+                        }
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+          </section>
+        }
+
+        @if (c.perspectives; as pv) {
+          <section id="differ" tabindex="-1" class="differ" aria-labelledby="differ-h">
+            <h2 id="differ-h">{{ pv.heading }}</h2>
+            @if (pv.intro) {
+              <p class="differ-intro">{{ pv.intro }}</p>
+            }
+            <dl>
+              @for (v of pv.views; track v.holder) {
+                <div class="view">
+                  <dt>{{ v.holder }}</dt>
+                  <dd>{{ v.text }}</dd>
+                </div>
+              }
+            </dl>
+          </section>
+        }
+
+        <section id="sources" tabindex="-1" class="srcs" aria-labelledby="sources-h">
+          <h2 id="sources-h">Sources</h2>
+          <ul>
+            @for (s of c.sources; track s.title) {
+              <li>
+                @if (s.url) {
+                  <a [href]="s.url" target="_blank" rel="noopener noreferrer">{{ s.title }}</a>
+                } @else {
+                  <span class="plain-title">{{ s.title }}</span>
+                }
+                @if (s.publisher || s.note) {
+                  <span class="meta">
+                    {{ s.publisher }}@if (s.publisher && s.note) {, }{{ s.note }}
+                  </span>
+                }
+              </li>
+            }
+          </ul>
+        </section>
+
+        <nav class="pager" aria-label="Chapters">
+          @if (neighbours().prev; as p) {
+            <a [routerLink]="['/', p.slug]" class="pager-link">
+              <span class="pager-dir">Previous</span>
+              <span class="pager-title">{{ p.title }}</span>
+            </a>
+          } @else {
+            <span></span>
+          }
+          @if (neighbours().next; as n) {
+            <a [routerLink]="['/', n.slug]" class="pager-link next">
+              <span class="pager-dir">Next</span>
+              <span class="pager-title">{{ n.title }}</span>
+            </a>
+          }
+        </nav>
+      </div>
+    </div>
+  </article>
+} @else {
+  <section class="wrap page missing">
+    <h1>This page does not exist</h1>
+    <p>
+      There is no chapter at this address. Choose one from the
+      <a routerLink="/">chapter index</a> or open the <a routerLink="/timeline">timeline</a>.
+    </p>
+  </section>
+}
